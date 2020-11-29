@@ -1,0 +1,71 @@
+---
+title: "NADEL ETHZ - PEAS Tanzania"
+author: "Roman Küpper"
+date: "11/28/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# import packages
+library(readr)
+library(AER)
+library(stargazer)
+library(PerformanceAnalytics)
+library(reshape2)
+
+# read and attach Tanzania dataset
+dataset <- read_csv("Tanzani.csv")
+attach(dataset)
+```
+
+
+<!-- 
+README:
+- load data in setup function
+- to hide code-chunks in output set echo-flag to false: ```{r, echo=FALSE}
+--> 
+
+# 1. Introduction
+<!-- Write an introduction including some background on the problem and also on your country. -->
+
+\newpage
+# 2. Analysis
+<!-- Explain the main empirical approach of your analysis to investigate the research question (regression
+model, dependent and independent variables). -->
+
+\newpage
+# 3. Results
+## 3.1 Presentation
+<!-- Present the results: descriptive statistics (e.g. tables and or graphs) and regression results. 
+source: https://www.econometrics-with-r.org/11-1-binary-dependent-variables-and-the-linear-probability-model.html
+-->
+First impressions:
+```{r, out.width="50%", fig.cap="Stunting", fig.align = 'center'}
+model1 <- lm(stunting ~ log_y)
+plot(stunting ~ log_y)
+abline(model1, col="blue")
+```
+
+```{r, out.width="50%", fig.cap="Dead at Age of 5", fig.align = 'center'}
+model2 <- lm(dead5 ~ log_y)
+plot(dead5 ~ log_y)
+abline(model2, col="blue")
+```
+
+Don't use this - just to give a hint of correlating variables
+```{r, out.width="100%", fig.cap="Dead at Age of 5", fig.align = 'center'}
+corr=cor(dataset[as.numeric(which(sapply(dataset,class)=="numeric"))])
+chart.Correlation(corr)
+```
+
+
+
+## 3.2 Discussion
+<!-- Explain and discuss the results. -->
+
+\newpage
+# 4. Conclusion
+<!-- Provide a conclusion and some discussion on the limitation of your study as well as policy implications -->
+
+
