@@ -13,9 +13,9 @@ library(corrplot)
 library(corrgram)
 
 # read and attach Tanzania dataset
-nepal <- read_csv("Nepal.csv")
-attach(nepal)
-length(unique(hh_id))
+tanzania <- read_csv("Tanzani.csv")
+attach(tanzania)
+ut <- unique(tanzania)
 
 
 # get some general info + datatypes
