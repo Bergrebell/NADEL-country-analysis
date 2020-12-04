@@ -15,12 +15,14 @@ library(corrgram)
 # read and attach Tanzania dataset
 tanzania <- read_csv("Tanzani.csv")
 attach(tanzania)
-ut <- unique(tanzania)
-
+#ut <- unique(tanzania) not needed anymore
 
 # get some general info + datatypes
-str(dataset)
+#str(dataset)
+
+t05 <- subset(tanzania, year==2005)
+t10 <- subset(tanzania, year==2010)
+t15 <- subset(tanzania, year==2015)
 
 # check for correlations
-# corrplot(corrgram(dataset), type = "upper", order = "hclust", tl.col = "black", tl.srt = 45)
-
+corrplot(corrgram(t05), type = "upper", order = "hclust", tl.col = "black", tl.srt = 45)
