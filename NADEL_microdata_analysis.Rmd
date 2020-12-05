@@ -7,6 +7,10 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# Set WD & ENV
+Sys.setenv(LANG = "en")
+setwd("~/Dropbox (Personal)/NADEL ETHZ/Policy Evaluation and Applied Statistics/Country Analysis")
+
 # import packages
 library(readr)
 library(AER)
@@ -55,8 +59,8 @@ abline(model2, col="blue")
 
 Don't use this - just to give a hint of correlating variables
 ```{r, out.width="100%", fig.cap="Dead at Age of 5", fig.align = 'center'}
-corr=cor(dataset[as.numeric(which(sapply(dataset,class)=="numeric"))])
-chart.Correlation(corr)
+#corr=cor(dataset[as.numeric(which(sapply(dataset,class)=="numeric"))])
+#chart.Correlation(corr)
 ```
 
 
