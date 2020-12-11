@@ -57,6 +57,7 @@ chart.Correlation(sub05)
   geom_boxplot(aes(fill=Label))
 
 model1 <- lm(t05$stunting ~ t05$Y_his)
+
 plot(model1)
 
 # why we must use fixed time effect: stunting and dead5 are sinking over time

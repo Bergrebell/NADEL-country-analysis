@@ -81,3 +81,24 @@ stargazer(model_dead5, model_dead5_2,
 
 corr=cor(tanzania[as.numeric(which(sapply(tanzania,class)=="numeric"))])
 chart.Correlation(corr)
+
+tanzania %>%
+  group_by(year) %>%
+  summarise_at("Y_his", funs(mean(., na.rm=TRUE)))
+
+tanzania %>%
+  group_by(year) %>%
+  summarise_at("Y_his", funs(perce(., na.rm=TRUE)))
+
+stargazer(t05, 
+          type = 'text', min.max=TRUE, mean.sd = TRUE, 
+          nobs = FALSE, median = FALSE, iqr = FALSE,
+          digits=1, align=T,
+          title = "Summary Statistics",
+          out = 'tab.txt')
+
+
+
+a <- c(t05$year, t05$stunting)
+stargazer(a, type = "text")
+
