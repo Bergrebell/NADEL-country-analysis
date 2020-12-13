@@ -52,23 +52,7 @@ table1::label(tanzania$Y_his) <- "Gdp Per Capita"
 table1::table1(~stunting + dead5 + Y_his | year, data = tanzania)
 
 
-# descriptive summary table - V2 (keine mischung aus nominal, continous)
-library(reporttools)
-vars1 <- tanzania[, c("stunting", "dead5")]
-cap1 <- "Patient characteristics: nominal variables."
-tableNominal(vars = vars1, cap = cap1, vertical = FALSE, lab = "tab: nominal1", longtable = FALSE)
 
-# descriptive summary table - V3
-library(furniture)
-library(knitr)
-furniture::table1(tanzania,
-                  "Stunting" = stunting, "dead5" = dead5,
-                  splitby = ~year,
-                  test = TRUE,
-                  na.rm = FALSE,
-                  format_number = TRUE
-) -> tab11
-tab11
 
 
 
