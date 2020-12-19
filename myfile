@@ -1,5 +1,55 @@
 
-Regressions Using Demographic and Health Surveys
-===================================================
-Statistic N Mean St. Dev. Min Pctl(25) Pctl(75) Max
-===================================================
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Sa, Dez 19, 2020 - 19:17:41
+% Requires LaTeX packages: dcolumn rotating 
+\begin{sidewaystable}[!htbp] \centering 
+  \caption{Regressions Using Demographic and Health Surveys} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-5} D{.}{.}{-5} D{.}{.}{-5} D{.}{.}{-5} D{.}{.}{-5} D{.}{.}{-5} } 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & \multicolumn{6}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-7} 
+\\[-1.8ex] & \multicolumn{3}{c}{stunting} & \multicolumn{3}{c}{dead5} \\ 
+ & \multicolumn{1}{c}{(I)} & \multicolumn{1}{c}{(II)} & \multicolumn{1}{c}{(III)} & \multicolumn{1}{c}{(IV)} & \multicolumn{1}{c}{(V)} & \multicolumn{1}{c}{(VI)} \\ 
+\\[-1.8ex] & \multicolumn{1}{c}{} & \multicolumn{1}{c}{NA} & \multicolumn{1}{c}{NA} & \multicolumn{1}{c}{NA} & \multicolumn{1}{c}{NA} & \multicolumn{1}{c}{NA}\\ 
+\hline \\[-1.8ex] 
+ log\_y & -0.10287^{***} & -0.09724^{***} & -0.06086^{***} & -0.00832^{***} & -0.00632^{***} & -0.00353 \\ 
+  & (0.00431) & (0.00433) & (0.00578) & (0.00162) & (0.00161) & (0.00222) \\ 
+  as.factor(urban)urban &  &  & -0.04084^{***} &  &  & 0.00568^{*} \\ 
+  &  &  & (0.00891) &  &  & (0.00341) \\ 
+  c\_age &  &  & 0.00287^{***} &  &  &  \\ 
+  &  &  & (0.00020) &  &  &  \\ 
+  c\_sex &  &  & -0.05035^{***} &  &  & -0.00095 \\ 
+  &  &  & (0.00645) &  &  & (0.00244) \\ 
+  c\_first &  &  &  &  &  & 0.02076^{***} \\ 
+  &  &  &  &  &  & (0.00370) \\ 
+  mo\_assistance &  &  &  &  &  & -0.00631^{**} \\ 
+  &  &  &  &  &  & (0.00314) \\ 
+  mo\_breastfeeedingyes &  &  &  &  &  & -0.02894^{***} \\ 
+  &  &  &  &  &  & (0.00267) \\ 
+  mo\_age\_birth &  &  & -0.00142^{***} &  &  & 0.00180^{***} \\ 
+  &  &  & (0.00048) &  &  & (0.00023) \\ 
+  as.factor(mo\_breastfeeeding)yes &  &  & -0.04470^{***} &  &  &  \\ 
+  &  &  & (0.00756) &  &  &  \\ 
+  mo\_noedu &  &  & 0.06406^{***} &  &  &  \\ 
+  &  &  & (0.01163) &  &  &  \\ 
+  mo\_primary &  &  & -0.02500^{***} &  &  & -0.00395 \\ 
+  &  &  & (0.00724) &  &  & (0.00272) \\ 
+  mo\_secondary &  &  & -0.02048 &  &  & -0.01305^{***} \\ 
+  &  &  & (0.01592) &  &  & (0.00442) \\ 
+  water\_improved\_total &  &  & -0.02182^{***} &  &  & -0.00982^{***} \\ 
+  &  &  & (0.00710) &  &  & (0.00273) \\ 
+  sani\_improved\_total &  &  & -0.01866^{**} &  &  & -0.00636^{**} \\ 
+  &  &  & (0.00908) &  &  & (0.00317) \\ 
+  Constant & 0.79150^{***} & 0.81154^{***} & 0.70546^{***} & 0.07170^{***} & 0.07966^{***} & 0.04437^{***} \\ 
+  & (0.01817) & (0.01828) & (0.03274) & (0.00689) & (0.00710) & (0.01115) \\ 
+ \hline \\[-1.8ex] 
+Observations & \multicolumn{1}{c}{21,219} & \multicolumn{1}{c}{21,219} & \multicolumn{1}{c}{21,219} & \multicolumn{1}{c}{24,198} & \multicolumn{1}{c}{24,198} & \multicolumn{1}{c}{24,198} \\ 
+R$^{2}$ & \multicolumn{1}{c}{0.02397} & \multicolumn{1}{c}{0.03486} & \multicolumn{1}{c}{0.05976} & \multicolumn{1}{c}{0.00102} & \multicolumn{1}{c}{0.00462} & \multicolumn{1}{c}{0.01457} \\ 
+Adjusted R$^{2}$ & \multicolumn{1}{c}{0.02392} & \multicolumn{1}{c}{0.03472} & \multicolumn{1}{c}{0.05919} & \multicolumn{1}{c}{0.00098} & \multicolumn{1}{c}{0.00449} & \multicolumn{1}{c}{0.01404} \\ 
+\hline 
+\hline \\[-1.8ex] 
+\textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\end{tabular} 
+\end{sidewaystable} 

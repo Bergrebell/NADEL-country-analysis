@@ -25,77 +25,83 @@ t10 <- subset(tanzania, year==2010)
 t15 <- subset(tanzania, year==2015)
 summary(t05$survey_weight)
 
-tanzania$agg_education_indoubt_edu <- ifelse(tanzania$mo_secondary == 1, 'secondary',
-                                             ifelse(tanzania$mo_primary ==1, 'primary',
-                                                    ifelse(tanzania$mo_noedu == 1,"noedu", "invalid")))
+# Regression models ---------------------------------------------------------
+# Stunting - Model 1
+model_stunting_1 = lm(stunting~log_y)
+summary(model_stunting_1)
 
-# Corrmatrix Stunting
-# select only certain columns from dataframe
-sub_stunting_with_factors <- select(tanzania,
-                       'stunting',
-                       'urban',
-                       'c_age', 
-                       'c_sex',
-                       'mo_age_birth',
-                       'mo_breastfeeeding',
-                       'mo_primary',
-                       'mo_secondary',
-                       'log_y',
-                       'water_improved_total', 
-                       'sani_improved_total'
+# Stunting - Model 2
+model_stunting_2_tfe = lm(stunting~log_y + as.factor(year))
+summary(model_stunting_2_tfe)
+
+# Stunting - Model 3
+model_stunting_3_tfe = lm(stunting~
+                            log_y + 
+                            as.factor(year) + 
+                            as.factor(urban) + 
+                            c_age + 
+                            c_sex + 
+                            mo_age_birth +
+                            as.factor(mo_breastfeeeding) +
+                            mo_noedu +
+                            mo_primary +
+                            mo_secondary +
+                            water_improved_total +
+                            sani_improved_total
 )
-sub_stunting_with_factors$mo_breastfeeeding <- as.factor(sub_stunting_with_factors$mo_breastfeeeding)
-sub_stunting_with_factors$urban <- as.factor(sub_stunting_with_factors$urban)
+summary(model_stunting_3_tfe)
 
-library(tidyr)
-sub_stunting_with_factors_clean <- na.omit(sub_stunting_with_factors)
-sub_stunting_with_factors_clean$mo_breastfeeeding <- ifelse(sub_stunting_with_factors_clean$mo_breastfeeeding == 'yes', 1, 0)
-sub_stunting_with_factors_clean$urban <- ifelse(sub_stunting_with_factors_clean$urban == 'urban', 1, 0)
-head(sub_stunting_with_factors_clean)
+# Dead5 - Model 1
+model_dead5_1 = lm(dead5~log_y)
+summary(model_dead5_1)
 
-# first visual hint on correlation between variables
-source("http://www.sthda.com/upload/rquery_cormat.r")
-rquery.cormat(sub_stunting_with_factors_clean)
-require(corrplot)
-corrplot(corrgram(sub_stunting_with_factors_clean), type = "upper", tl.col = "black", tl.srt = 45, sig.level = 0.05, insig = "blank")
+# Dead5 - Model 2
+model_dead5_2_tfe = lm(dead5~log_y + as.factor(year))
+summary(model_dead5_2_tfe)
 
-# Corrmatrix Dead5
-# select only certain columns from dataframe
-sub_dead5_with_factors <- select(tanzania,
-                                    'dead5',
-                                    'c_sex',
-                                    'c_first',
-                                    'mo_assistance',
-                                    'mo_breastfeeeding',
-                                    'mo_age_birth',
-                                    'mo_primary',
-                                    'mo_secondary',
-                                    'log_y',
-                                    'urban',
-                                    'water_improved_total', 
-                                    'sani_improved_total'
-                                    
+# Dead5 - Model 3
+model_dead5_3_tfe = lm(dead5~
+                            log_y + 
+                            as.factor(year) + 
+                            as.factor(urban) + 
+                            c_sex + 
+                            c_first + 
+                            mo_assistance +
+                            mo_breastfeeeding +
+                            mo_age_birth +
+                            mo_primary +
+                            mo_secondary +
+                            water_improved_total +
+                            sani_improved_total
 )
-sub_dead5_with_factors$mo_breastfeeeding <- as.factor(sub_dead5_with_factors$mo_breastfeeeding)
-sub_dead5_with_factors$urban <- as.factor(sub_dead5_with_factors$urban)
+summary(model_dead5_3_tfe)
 
-sub_dead5_with_factors_clean <- na.omit(sub_dead5_with_factors)
-sub_dead5_with_factors_clean$mo_breastfeeeding <- ifelse(sub_dead5_with_factors_clean$mo_breastfeeeding == 'yes', 1, 0)
-sub_dead5_with_factors_clean$urban <- ifelse(sub_dead5_with_factors_clean$urban == 'urban', 1, 0)
-head(sub_dead5_with_factors_clean)
+# Stargazer S.errors ---------------------------------------------------------
+rob_se <- list(
+               sqrt(diag(vcovHC(model_stunting_1, type = "HC1"))),
+               sqrt(diag(vcovHC(model_stunting_2_tfe, type = "HC1"))),
+               sqrt(diag(vcovHC(model_stunting_3_tfe, type = "HC1"))),
+               sqrt(diag(vcovHC(model_dead5_1, type = "HC1"))),
+               sqrt(diag(vcovHC(model_dead5_2_tfe, type = "HC1"))),
+               sqrt(diag(vcovHC(model_dead5_3_tfe, type = "HC1")))
+               )
 
-# first visual hint on correlation between variables
-require(corrplot)
-corrplot(corrgram(sub_dead5_with_factors_clean), type = "upper", tl.col = "black", tl.srt = 45, sig.level = 0.05, insig = "blank")
+# Stargazer table ---------------------------------------------------------
+stargazer(model_stunting_1, model_stunting_2_tfe, model_stunting_3_tfe, model_dead5_1, model_dead5_2_tfe, model_dead5_3_tfe,
+          title = "Regressions Using Demographic and Health Surveys",
+          type = "latex",
+          out="myfile",
+          out.header=FALSE,
+          align=TRUE,
+          float.env = "sidewaystable",
+          digits = 5,
+          header = TRUE,
+          omit="year",
+          omit.stat=c("LL","ser","f"), 
+          no.space=TRUE,
+          se = rob_se,
+          object.names = TRUE,
+          model.numbers = FALSE,
+          column.labels = c("(I)", "(II)", "(III)", "(IV)", "(V)", "(VI)"))
 
 
-
-
-
-
-
-
-# STUFF
-# Other correlation matrix tool
-source("http://www.sthda.com/upload/rquery_cormat.r")
-rquery.cormat(sub_dead5_with_factors_clean)
