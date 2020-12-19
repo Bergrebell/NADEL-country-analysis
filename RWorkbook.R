@@ -102,3 +102,69 @@ stargazer(t05,
 a <- c(t05$year, t05$stunting)
 stargazer(a, type = "text")
 
+
+
+
+
+
+
+
+
+
+
+
+
+# Flavio example:
+stuntingratio_vs_years = c(mean(t05$stunting,na.rm=TRUE),mean(t10$stunting,na.rm=TRUE),mean(t15$stunting,na.rm=TRUE))
+dead5ratio_vs_years = c(mean(t05$dead5),mean(t10$dead5),mean(t15$dead5))
+
+my.df <- data.frame(c(1,2,3),
+                    100*dead5ratio_vs_years,
+                    100*stuntingratio_vs_years)
+
+# stunting ratio over time => Flavios ergebnisse stimmen
+mean(t05$stunting, na.rm = TRUE) # => 0.5694675
+mean(tanzania$dead5, na.rm = TRUE) # => 0.5694675
+
+
+length(which(t05$stunting == 0)) # => 3775
+length(which(t05$stunting == 1)) # => 2854
+3775 / sum(2854, 3775) # => 0.5694675
+2854 / sum(2854, 3775) # => 0.4305325
+
+
+
+stuntingratio_vs_years = c(mean(t05$stunting,na.rm=TRUE),mean(t10$stunting,na.rm=TRUE),mean(t15$stunting,na.rm=TRUE))
+dead5ratio_vs_years = c(mean(t05$dead5,na.rm=TRUE),mean(t10$dead5,na.rm=TRUE),mean(t15$dead5,na.rm=TRUE))
+average_income = c(mean(t05$Y_his),mean(t10$Y_his),mean(t15$Y_his))
+
+graph_data <- data.frame(c("2005","2010","2015"),
+                         100*dead5ratio_vs_years,
+                         100*stuntingratio_vs_years,
+                         average_income
+)
+colnames(graph_data) <- c("year","dead_percent","stunting_percent","income_avg")
+
+ggplot(data=graph_data, 
+       aes(x=year, y=dead_percent, group=1)) +
+  geom_line()+
+  geom_point()
+
+ggplot(data=graph_data, 
+       aes(x=year, y=stunting_percent, group=1)) +
+  geom_line()+
+  geom_point()
+
+ggplot(data=subset(tanzania, !is.na(tanzania$stunting)), 
+       aes(x = year, 
+           fill = stunting == 1)) + 
+  geom_bar(position = "stack")
+
+ggplot(tanzania, 
+       aes(x = year, 
+           fill = dead5 == 1)) + 
+  geom_bar(position = "dodge")
+
+ggplot(tanzania, aes(x = year)) +
+  geom_bar(aes(fill = dead5 == 1), position = position_stack(reverse = TRUE)) +
+  theme(legend.position = "top")
