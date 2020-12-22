@@ -43,7 +43,6 @@ model_stunting_3_tfe = lm(stunting~
                             c_sex + 
                             mo_age_birth +
                             as.factor(mo_breastfeeeding) +
-                            mo_noedu +
                             mo_primary +
                             mo_secondary +
                             water_improved_total +
@@ -64,10 +63,10 @@ model_dead5_3_tfe = lm(dead5~
                             log_y + 
                             as.factor(year) + 
                             as.factor(urban) + 
-                            c_sex + 
                             c_first + 
                             mo_assistance +
-                            mo_breastfeeeding +
+                            mo_care +
+                            as.factor(mo_breastfeeeding) +
                             mo_age_birth +
                             mo_primary +
                             mo_secondary +

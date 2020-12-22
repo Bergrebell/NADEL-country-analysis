@@ -54,8 +54,6 @@ sub_stunting_with_factors_clean$urban <- ifelse(sub_stunting_with_factors_clean$
 head(sub_stunting_with_factors_clean)
 
 # first visual hint on correlation between variables
-source("http://www.sthda.com/upload/rquery_cormat.r")
-rquery.cormat(sub_stunting_with_factors_clean)
 require(corrplot)
 corrplot(corrgram(sub_stunting_with_factors_clean), type = "upper", tl.col = "black", tl.srt = 45, sig.level = 0.05, insig = "blank")
 
@@ -66,6 +64,8 @@ sub_dead5_with_factors <- select(tanzania,
                                     'c_sex',
                                     'c_first',
                                     'mo_assistance',
+                                    'mo_care',
+                                    'mo_tetanus',
                                     'mo_breastfeeeding',
                                     'mo_age_birth',
                                     'mo_primary',
@@ -89,9 +89,32 @@ require(corrplot)
 corrplot(corrgram(sub_dead5_with_factors_clean), type = "upper", tl.col = "black", tl.srt = 45, sig.level = 0.05, insig = "blank")
 
 
+# Corrmatrix Both --------------------------
 
+sub_all_with_factors <- select(tanzania,
+                                 'dead5',
+                                 'c_sex',
+                                 'c_first',
+                                 'mo_assistance',
+                                 'mo_care',
+                                 'mo_tetanus',
+                                 'mo_breastfeeeding',
+                                 'mo_age_birth',
+                                 'mo_primary',
+                                 'mo_secondary',
+                                 'log_y',
+                                 'urban',
+                                 'water_improved_total', 
+                                 'sani_improved_total'
+)
+sub_all_with_factors$mo_breastfeeeding <- as.factor(sub_all_with_factors$mo_breastfeeeding)
+sub_all_with_factors$urban <- as.factor(sub_all_with_factors$urban)
+sub_all_with_factors_clean <- na.omit(sub_all_with_factors)
+sub_all_with_factors_clean$mo_breastfeeeding <- ifelse(sub_all_with_factors_clean$mo_breastfeeeding == 'yes', 1, 0)
+sub_all_with_factors_clean$urban <- ifelse(sub_all_with_factors_clean$urban == 'urban', 1, 0)
+head(sub_all_with_factors_clean)
 
-
+corrplot(corrgram(sub_all_with_factors_clean), type = "upper", tl.col = "black", tl.srt = 45, sig.level = 0.05, insig = "blank")
 
 
 
